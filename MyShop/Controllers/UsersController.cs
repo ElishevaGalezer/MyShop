@@ -2,6 +2,7 @@
 using System.Text.Json;
 using Services;
 using Entities;
+
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MyShop.Controllers
@@ -11,7 +12,12 @@ namespace MyShop.Controllers
    
     public class UsersController : ControllerBase
     {
-        UserService service = new();
+        IUserService _userService ;
+        public UsersController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         // GET: api/<UsersController>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -28,7 +34,7 @@ namespace MyShop.Controllers
         [HttpPost("Login")]
         public ActionResult Login([FromQuery] string UserName, [FromQuery] string Password)
         {
-         User user = service.Login(UserName, Password);
+         User user = _userService.Login(UserName, Password);
              if (user!=null)
                  return Ok(user);
             return NoContent();
@@ -39,16 +45,27 @@ namespace MyShop.Controllers
 
         public ActionResult Post([FromBody] User user)
         {
-            user = service.Post(user);
+            int score = Password(user.Password);
+            if (score <= 2)
+                return NoContent();
+            user = _userService.Post(user);
             return CreatedAtAction(nameof(Get), new { id = user.userId }, user);
 
+        }
+
+        [HttpPost("Password")]
+
+        public int Password([FromBody] string password)
+        {
+          int score = _userService.Password(password);
+            return score;
         }
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
         public ActionResult<User> Put(int id, [FromBody] User userToUpdate)
         {
-            User user = service.Put(id,userToUpdate);
+            User user = _userService.Put(id,userToUpdate);
             if(user!=null)
                 return Ok(user);
             return NoContent();

@@ -11,9 +11,10 @@
     <div>
         <h1> Hi!!!!!!!!!!!!!!!!!!!!!!!!!</h1>
         <br /> <br />
-        שם משתמש:<input id="userName"/>
+        שם משתמש:<input id="userName" />
         <br /> <br />
-        סיסמה:<input id="password"/>
+        סיסמה:<input id="password" />
+        
         <br /> <br />
         <button onclick="Login()">התחברות</button>
         <br /> <br />
@@ -25,7 +26,8 @@
         <br /> <br />
         שם משתמש:<input id="userName1" />
         <br /> <br />
-        סיסמה:<input id="password1" />
+        סיסמה:<input id="password1" onblur="Password()"/>
+        <progress id="progress" max="4" value="0"></progress>
         <br /> <br />
         שם פרטי:<input id="firstName" />
         <br /> <br />

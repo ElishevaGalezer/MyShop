@@ -4,6 +4,8 @@ const GetDataFromDocumentForRegister = () => {
     const Password = document.querySelector("#password1").value;
     const FirstName = document.querySelector("#firstName").value;
     const LastName = document.querySelector("#lastName").value;
+
+
     return ({ UserName, Password, FirstName, LastName });
 }
 const Register = async() => {
@@ -93,3 +95,22 @@ const visible = () => {
     newUser.classList.remove("newUser")
 }
 
+const Password = async() => {
+    const newUser = GetDataFromDocumentForRegister();
+    try {
+        const response = await fetch("api/Users/password", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newUser.Password)
+        });
+        console.log(response)
+        const data = await response.json();
+        const progress = document.querySelector("#progress");
+             progress.value = data;
+      
+    } catch (error) {
+        console.log(error)
+    }
+}

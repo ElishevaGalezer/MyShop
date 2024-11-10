@@ -1,15 +1,19 @@
 ﻿using Entities;
 using System.Text.Json;
 using Repositories;
+using Zxcvbn;
 
 namespace Services
 {
-    public class UserService
+    public class UserService:IUserService
+
 
     {
-        UserRepositories repository = new();
-        public UserService()
-        { }
+        IUserRepositories _userRepository;
+        public UserService(IUserRepositories userRepository)
+        {
+            _userRepository = userRepository;
+        }
 
             public IEnumerable<string> Get()
             {
@@ -21,23 +25,28 @@ namespace Services
             }
             public User Login(string UserName, string Password)
             {
-                return repository.Login(UserName, Password);
+                return _userRepository.Login(UserName, Password);
             }
             public User Post(User user)
             {
                 
-                return repository.Post(user);
+                return _userRepository.Post(user);
 
             }
-
+        public int Password(string password)
+        {
+            var result = Zxcvbn.Core.EvaluatePassword(password).Score;
+            
+            return result;
+        }
             public User Put(int id, User userToUpdate)
             {
-            return repository.Put(id, userToUpdate);
+            return _userRepository.Put(id, userToUpdate);
             }
 
             public void Delete(int id)
             {
-            repository.Delete(id);
+            _userRepository.Delete(id);
         }
         }
     }

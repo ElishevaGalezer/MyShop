@@ -2,7 +2,7 @@
 using Entities;
 namespace Repositories
 {
-    public class UserRepositories
+    public class UserRepositories : IUserRepositories
     {
         public UserRepositories()
         {
@@ -11,12 +11,12 @@ namespace Repositories
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
-        } 
+        }
         public string Get(int id)
         {
-            return "value11";
+            return "value";
         }
-        public User Login( string UserName,  string Password)
+        public User Login(string UserName, string Password)
         {
             using (StreamReader reader = System.IO.File.OpenText("M:\\web api\\MyShop\\MyShop\\UserList.txt"))
             {
