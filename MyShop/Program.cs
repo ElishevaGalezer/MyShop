@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 using Repositories;
 using Services;
 
@@ -6,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepositories, UserRepositories>();
-
+builder.Services.AddDbContext<MyShopUsersContext>(options => options.UseSqlServer("Server=SRV2\\PUPILS;Database=MyShopUsers;Trusted_Connection=True;TrustServerCertificate=True"));
 
 builder.Services.AddControllers();
 

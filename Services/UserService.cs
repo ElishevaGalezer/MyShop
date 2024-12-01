@@ -23,14 +23,14 @@ namespace Services
             {
                 return "value";
             }
-            public User Login(string UserName, string Password)
+            public async Task<User> Login(string UserName, string Password)
             {
-                return _userRepository.Login(UserName, Password);
+                return await _userRepository.Login(UserName, Password);
             }
-            public User Post(User user)
+            public async Task<User> Post(User user)
             {
                 
-                return _userRepository.Post(user);
+                return await _userRepository.Post(user);
 
             }
         public int Password(string password)
@@ -39,9 +39,9 @@ namespace Services
             
             return result;
         }
-            public User Put(int id, User userToUpdate)
+            public async Task Put(int id, User userToUpdate)
             {
-            return _userRepository.Put(id, userToUpdate);
+             await _userRepository.Put(id, userToUpdate);
             }
 
             public void Delete(int id)
