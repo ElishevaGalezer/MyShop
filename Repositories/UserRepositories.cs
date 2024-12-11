@@ -25,14 +25,15 @@ namespace Repositories
            User user=await context.Users.FirstOrDefaultAsync(user => user.Password == Password && user.UserName== UserName);
             return user;
         }
-        public async Task <User> Post(User user)
+        public async Task<User> Post(User user)
         {
-            context.Users.AddAsync(user);
+            var res= await context.Users.AddAsync(user);
             await  context.SaveChangesAsync();
-            return user;
+            return res;// - the created user with the id
+            //return user;
         }
 
-        public async Task Put(int id, User userToUpdate)
+        public async Task Put(int id, User userToUpdate)//return user
         {
             context.Users.Update(userToUpdate);
             await context.SaveChangesAsync();
