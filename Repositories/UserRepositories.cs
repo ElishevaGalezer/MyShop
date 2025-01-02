@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using Entities;
 using Microsoft.EntityFrameworkCore;
+using MyShop.Models;
 
 
 namespace Repositories
@@ -11,10 +12,6 @@ namespace Repositories
         public UserRepositories(MyShopUsersContext myShopUsersContext)
         {
             context = myShopUsersContext;
-        }
-        public IEnumerable<string> Get()
-        {
-             return  new string[] { "value1", "value2" };
         }
         public string Get(int id)
         {
@@ -34,12 +31,9 @@ namespace Repositories
 
         public async Task Put(int id, User userToUpdate)
         {
+            userToUpdate.Id = id;
             context.Users.Update(userToUpdate);
             await context.SaveChangesAsync();
-        }
-
-        public void Delete(int id)
-        {
         }
     }
 }
