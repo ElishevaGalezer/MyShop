@@ -35,9 +35,7 @@ public partial class MyShopUsersContext : DbContext
         modelBuilder.Entity<Category>(entity =>
         {
             entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
-            entity.Property(e => e.CategoryName)
-                .HasMaxLength(50)
-                .IsFixedLength();
+            entity.Property(e => e.CategoryName).HasMaxLength(50);    
         });
 
         modelBuilder.Entity<Order>(entity =>
@@ -76,17 +74,12 @@ public partial class MyShopUsersContext : DbContext
         {
             entity.Property(e => e.ProductId).HasColumnName("ProductID");
             entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
-            entity.Property(e => e.Description)
-                .HasMaxLength(100)
-                .IsFixedLength();
+            entity.Property(e => e.Description).HasMaxLength(100);
             entity.Property(e => e.ImgUrl)
                 .HasMaxLength(100)
-                .IsFixedLength()
                 .HasColumnName("ImgURL");
             entity.Property(e => e.Price).HasColumnType("money");
-            entity.Property(e => e.ProductName)
-                .HasMaxLength(50)
-                .IsFixedLength();
+            entity.Property(e => e.ProductName).HasMaxLength(50);
 
             entity.HasOne(d => d.Category).WithMany(p => p.Products)
                 .HasForeignKey(d => d.CategoryId)

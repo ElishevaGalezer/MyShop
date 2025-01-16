@@ -12,7 +12,7 @@ const Register = async() => {
     const newUser = GetDataFromDocumentForRegister();
     try {
         
-        const response = await fetch("api/Users", {
+        const response = await fetch("../api/Users", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ const GetDataFromDocumentForLogin = () => {
 const Login = async () => {
     const existUser = GetDataFromDocumentForLogin();
     try {
-        const loginPost = await fetch(`api/Users/Login?UserName=${existUser.UserName}&Password=${existUser.Password}`, {
+        const loginPost = await fetch(`../api/Users/Login?UserName=${existUser.UserName}&Password=${existUser.Password}`, {
             method: "POST",
             headers: {
                 'Content-type': 'application/json'
@@ -56,7 +56,7 @@ const Login = async () => {
         else
           alert("conected!!")
         sessionStorage.setItem("id", data.id)
-        window.location.href = 'Update.html'
+        window.location.href = 'ShoppingBag.html'
 
     } catch (error) {
         alert("try again")
@@ -68,7 +68,7 @@ const Update = async () => {
     const newDetails = GetDataFromDocumentForRegister();
     try {
 
-        const responsePut = await fetch(`api/Users/${sessionStorage.getItem('id')}`, {
+        const responsePut = await fetch(`../api/Users/${sessionStorage.getItem('id')}`, {
             method: "PUT",
             headers: {
                 'Content-type': 'application/json'
