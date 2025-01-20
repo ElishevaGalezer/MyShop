@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
+using MyShop.Middleware;
 using MyShop.Models;
 using Repositories;
 using Services;
-
+using NLog.Web;
+using PresidentsApp.Middlewares;
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Host.UseNLog();
 // Add services to the container.
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepositories, UserRepositories>();
@@ -13,7 +15,11 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryRepositories, CategoryRepositories>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IOrderRepositories, OrderRepositories>();
+builder.Services.AddScoped<IOrderRepositories, OrderRepositories>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IRatingRepositories, RatingRepositories>();
+builder.Services.AddScoped<IRatingService, RatingService>();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
@@ -34,9 +40,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+
+app.UseRatingMiddleware();
+
+app.UseErrorHandlingMiddleware();
 
 app.UseAuthorization();
 

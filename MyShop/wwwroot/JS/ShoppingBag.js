@@ -80,8 +80,8 @@ placeOrder =async () => {
     let products = []
     let sum=0
     for (let i = 0; i < shoppingBag.length; i++) {
-        let thisProduct = { ProductId: shoppingBag[i], Quentity: 1 }
-        console.log(shoppingBag[i].price)
+        let thisProduct = { ProductId: shoppingBag[i].productId, Quentity: 1 }
+        console.log(shoppingBag[i].productId)
         sum += shoppingBag[i].price
         products.push(thisProduct)
     }
@@ -106,7 +106,7 @@ placeOrder =async () => {
           throw new Error(`HTTP error! status:${orderPost.status}`)
         const data = await orderPost.json()
         console.log(data)
-        alert(`order number ${data.order} seccied!`)
+        alert(`order number ${data.orderId} seccied!`)
         sessionStorage.setItem("orderItems", JSON.stringify([]))
         window.location.href="Products.html"
        

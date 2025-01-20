@@ -16,4 +16,6 @@ public partial class User
 
     public string? LastName { get; set; }
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
+    public virtual ICollection<Rating> Ratings { get; set; } = new List<Rating>();
+
 }

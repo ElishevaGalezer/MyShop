@@ -98,7 +98,7 @@ const visible = () => {
 const Password = async() => {
     const newUser = GetDataFromDocumentForRegister();
     try {
-        const response = await fetch("api/Users/password", {
+        const response = await fetch("../api/Users/password", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
