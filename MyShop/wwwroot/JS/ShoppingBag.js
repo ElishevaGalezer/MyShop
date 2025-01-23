@@ -32,6 +32,7 @@ const click = (product) => {
     products = JSON.parse(sessionStorage.getItem("orderItems"))
     console.log(products)
     let j = 0
+    //use indexOf instead of for loop
     for ( j = 0; j < products.length; j++) {
 
         if (products[j].productId == product.productId) {
@@ -56,15 +57,15 @@ const setOrderItem = async () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(newUser)
+            body: JSON.stringify(newUser)//?
         });
         console.log(response)
         if (!response.ok) {
-            console.log(`HTTP error! status:${newUser.status}`)
-            alert("שם משתמש או סיסמה אינם תקינים")
+            console.log(`HTTP error! status:${newUser.status}`)//?
+            alert("שם משתמש או סיסמה אינם תקינים")//?
         }
         else
-            alert("New user!")
+            alert("New user!")//?
     } catch (error) {
         console.log(error)
     }
