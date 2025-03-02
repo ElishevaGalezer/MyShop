@@ -56,7 +56,7 @@ const Login = async () => {
         else
           alert("conected!!")
         sessionStorage.setItem("id", data.id)
-        window.location.href = 'ShoppingBag.html'
+        window.location.href = 'Update.html'
 
     } catch (error) {
         alert("try again")
@@ -74,12 +74,12 @@ const Update = async () => {
                 'Content-type': 'application/json'
             },
             body: JSON.stringify(newDetails)
-           
-
+     
         });
         const dataPut = await responsePut.json
-        if (!responsePut.ok)
+        if (!responsePut.ok) { 
             alert("try again")
+        }
         else {
             alert("פרטים עודכנו בהצלחה!")
         }

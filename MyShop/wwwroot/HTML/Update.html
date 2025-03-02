@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <script defer src="Login.js"></script>
+    <script defer src="/JS/Login.js"></script>
 
 </head>
 <body dir="rtl">
@@ -12,7 +12,8 @@
         <br /> <br />
         שם משתמש:<input id="userName1" />
         <br /> <br />
-        סיסמה:<input id="password1" />
+        סיסמה:<input id="password1" onblur="Password()" />
+        <progress id="progress" max="4" value="0"></progress>
         <br /> <br />
         שם פרטי:<input id="firstName" />
         <br /> <br />

@@ -4,6 +4,7 @@ using Services;
 using Entities;
 using DTO;
 using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -68,10 +69,21 @@ namespace MyShop.Controllers
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public async Task Put(int id, [FromBody] User userToUpdate)
+        public async Task<ActionResult> Put(int id, [FromBody] PostUserDTO userToUpdateDTO)
+
         {
-           await _userService.Put(id,userToUpdate);
-           
+
+            User user = _mapper.Map<PostUserDTO, User>(userToUpdateDTO);
+
+            int score = Password(user.Password);
+            if (score <= 2)
+                return BadRequest();
+            
+            await _userService.Put(id, user);
+            UserDTO userDTO = _mapper.Map<User, UserDTO>(user);
+
+            return Ok(userDTO);
+ 
         }
     }
 }
