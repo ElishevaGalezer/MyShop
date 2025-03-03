@@ -2,6 +2,7 @@
 using DTO;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
+using PresidentsApp.Middlewares;
 using Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,10 +14,12 @@ namespace MyShop.Controllers
     public class ProductsController : ControllerBase{
          IProductService _productService;
         IMapper _mapper;
-    public ProductsController(IProductService productService,IMapper mapper)
+        private readonly ILogger<ProductsController> _logger;
+        public ProductsController(IProductService productService,IMapper mapper,ILogger<ProductsController> _logger)
     {
         _productService = productService;
             _mapper = mapper;
+            _logger.LogInformation("someone enter to the aplication");
         }
     
         // GET: api/<ProductsController>

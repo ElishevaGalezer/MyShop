@@ -56,7 +56,7 @@ const Login = async () => {
         else
           alert("conected!!")
         sessionStorage.setItem("id", data.id)
-        window.location.href = 'Update.html'
+        window.location.href = 'ShoppingBag.html'
 
     } catch (error) {
         alert("try again")

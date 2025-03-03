@@ -1,4 +1,5 @@
 ﻿using Entities;
+using Microsoft.Extensions.Logging;
 using Repositories;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,13 @@ namespace Services
     public class OrderService : IOrderService
     {
         IOrderRepositories _orderRepository;
-        public OrderService(IOrderRepositories orderRepository)
+        IProductRepositories _productRepository;
+        ILogger<OrderService> _logger;
+        public OrderService(IOrderRepositories orderRepository, IProductRepositories productRepository, ILogger<OrderService> logger)
         {
             _orderRepository = orderRepository;
+            _productRepository = productRepository;
+            _logger = logger;
         }
 
         public async Task<Order> GetByID(int id)
@@ -23,7 +28,35 @@ namespace Services
 
         public async Task<Order> Post(Order order)
         {
+            decimal acount = await CheckSum(order);
+            if (acount != order.OrderSum)
+            {
+                _logger.LogCritical($"{order.UserId} try to change the order price!!!!!!!!!!!");
+            }
+            order.OrderSum = acount;
             return await _orderRepository.Post(order);
+        }
+
+        private async Task<decimal> CheckSum(Order order)
+
+        {
+            List<Product> products = await _productRepository.Get(null, null, null, []);
+
+            decimal amount = 0;
+            foreach (var item in order.OrderItems)
+            {
+
+                var product = products.Find(p => p.ProductId == item.ProductId);
+                if (product != null)
+                {
+                    amount += product.Price;
+                }
+
+            }
+
+            return amount;
+
+
         }
     }
 }

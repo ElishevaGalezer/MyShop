@@ -5,6 +5,7 @@ using Entities;
 using DTO;
 using AutoMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
+using PresidentsApp.Middlewares;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,10 +18,12 @@ namespace MyShop.Controllers
     {
         IUserService _userService ;
         IMapper _mapper;
-        public UsersController(IUserService userService, IMapper mapper)
+        private readonly ILogger<UsersController> _logger;
+        public UsersController(IUserService userService, IMapper mapper, ILogger<UsersController> logger)
         {
             _userService = userService;
             _mapper = mapper;
+            _logger = logger;
         }
 
 
@@ -35,8 +38,10 @@ namespace MyShop.Controllers
         {
          User user =await _userService.Login(UserName, Password);
             UserDTO userDTO = _mapper.Map<User,UserDTO>(user);
-            if (user!=null)
-                 return Ok(userDTO);
+            if (user != null) {
+                _logger.LogInformation($" user {user.Id} enter to the aplication");
+                return Ok(userDTO);
+            }
             return NoContent();
         }
 
