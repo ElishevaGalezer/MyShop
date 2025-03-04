@@ -18,7 +18,7 @@ namespace MyShop.Controllers
     {
         IUserService _userService ;
         IMapper _mapper;
-        private readonly ILogger<UsersController> _logger;
+        ILogger<UsersController> _logger;
         public UsersController(IUserService userService, IMapper mapper, ILogger<UsersController> logger)
         {
             _userService = userService;
@@ -39,7 +39,7 @@ namespace MyShop.Controllers
          User user =await _userService.Login(UserName, Password);
             UserDTO userDTO = _mapper.Map<User,UserDTO>(user);
             if (user != null) {
-                _logger.LogInformation($" user {user.Id} enter to the aplication");
+                _logger.LogInformation($"user {user.Id} enter to the aplication");
                 return Ok(userDTO);
             }
             return NoContent();
@@ -52,16 +52,19 @@ namespace MyShop.Controllers
         { 
         
             User user = _mapper.Map<PostUserDTO,User>(postUserDTO);
-
-            int score = Password(user.Password);
-            if (score <= 2)
-                return NoContent();
+             int score = Password(user.Password);
+                if (score <= 2)
+                    return BadRequest();
             user =await _userService.Post(user);
-
-           UserDTO userDTO = _mapper.Map<User, UserDTO>(user);
-
+            if (user == null)
+               return BadRequest();
+               
+                
+                UserDTO userDTO = _mapper.Map<User, UserDTO>(user);
                 return CreatedAtAction(nameof(Get), new { id = user.Id }, userDTO);
-
+            
+            
+           
         }
 
         [HttpPost("Password")]

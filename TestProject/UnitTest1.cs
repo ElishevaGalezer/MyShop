@@ -46,8 +46,6 @@ namespace TestProject2
             var result = await userRepository.Post(user);
 
             // Assert
-            //mockSet.Verify(m => m.Add(It.IsAny<User>()), Times.Once);
-            //mockContext.Verify(m => m.SaveChangesAsync(), Times.Once);
             Assert.Equal(user.UserName, result.UserName);
         }
         

@@ -11,7 +11,7 @@ namespace ManagerApp
     {
         static void Main(string[] args)
         {
-            string connectionString = "data source=srv2\\pupils;initial catalog=MyShop_DB;Integrated Security=SSPI;Persist Security Info=False;TrustServerCertificate=true";
+            string connectionString = "data source=srv2\\pupils;initial catalog=MyShopUsers1;Integrated Security=SSPI;Persist Security Info=False;TrustServerCertificate=true";
             Insert insert = new Insert();
             Read read = new Read();
             insert.InsertCategory(connectionString);

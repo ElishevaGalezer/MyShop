@@ -28,12 +28,12 @@ namespace Services
 
         public async Task<Order> Post(Order order)
         {
-            decimal acount = await CheckSum(order);
-            if (acount != order.OrderSum)
+            decimal amount = await CheckSum(order);
+            if (amount != order.OrderSum)
             {
-                _logger.LogCritical($"{order.UserId} try to change the order price!!!!!!!!!!!");
+                _logger.LogCritical($"{order.UserId} tried to change the order price!!!!!!!!!!!");
             }
-            order.OrderSum = acount;
+            order.OrderSum = amount;
             return await _orderRepository.Post(order);
         }
 
@@ -53,10 +53,7 @@ namespace Services
                 }
 
             }
-
             return amount;
-
-
         }
     }
 }

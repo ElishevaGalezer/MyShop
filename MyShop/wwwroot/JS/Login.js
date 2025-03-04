@@ -11,7 +11,7 @@ const GetDataFromDocumentForRegister = () => {
 const Register = async() => {
     const newUser = GetDataFromDocumentForRegister();
     try {
-        
+
         const response = await fetch("../api/Users", {
             method: 'POST',
             headers: {
@@ -20,14 +20,19 @@ const Register = async() => {
             body: JSON.stringify(newUser)
         });
         console.log(response)
-        if (!response.ok) { 
+        if (!response.ok) {
             console.log(`HTTP error! status:${newUser.status}`)
-            alert("שם משתמש או סיסמה אינם תקינים") }
-      else
-           alert("New user!")
+            alert("בדוק את תקינות השדות!")
+        }
+        else {
+            alert("New user!")
+            window.location.href = 'ShoppingBag.html'
+        }
+           
     } catch (error) {
         console.log(error)
     }
+
 }
 const GetDataFromDocumentForLogin = () => {
     const UserName = document.querySelector("#userName").value;

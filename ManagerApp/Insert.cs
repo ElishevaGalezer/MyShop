@@ -31,11 +31,10 @@ namespace Manager
             {
                 cmd.Parameters.Add("@categoryName", SqlDbType.VarChar).Value = categoryName;
 
-                cn.Open();
+               cn.Open();
              rowsAffected = cmd.ExecuteNonQuery();
               cn.Close();
-                  
-
+              
             }
             }
             return rowsAffected; 

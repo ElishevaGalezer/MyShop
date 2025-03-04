@@ -8,6 +8,7 @@ using PresidentsApp.Middlewares;
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseNLog();
 // Add services to the container.
+builder.Services.AddMemoryCache();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepositories, UserRepositories>();
 builder.Services.AddScoped<IProductRepositories, ProductsRepositories>();

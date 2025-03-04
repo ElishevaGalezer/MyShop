@@ -15,7 +15,7 @@ namespace Tests
         public DatabaseFixure()
         {
             var options = new DbContextOptionsBuilder<MyShopUsersContext>()
-                .UseSqlServer("Server = SRV2\\PUPILS; Database=MyShopUsers1_test; Trusted_Connection=True; TrustServerCertificate=True" )
+                .UseSqlServer("Server = SRV2\\PUPILS; Database=MyShopUsers2_test; Trusted_Connection=True; TrustServerCertificate=True" )
                 .Options;
             Context = new MyShopUsersContext(options);
             Context.Database.EnsureCreated();

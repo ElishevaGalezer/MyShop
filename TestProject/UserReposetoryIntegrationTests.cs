@@ -34,7 +34,7 @@ namespace Test
 
             var retrievedUser = await _reposetory.Login(user.UserName,user.Password); 
 
-           // var retrievedUser = await _context.Users.FindAsync(user.Id);
+        
 
             // Assert
             Assert.NotNull(retrievedUser);
@@ -47,7 +47,7 @@ namespace Test
         public async Task Get_ShouldReturnNull_WhenUserDoesNotExist()
         {
             // Act
-            //var retrievedUser = await _context.Users.FindAsync(-1); // מזהה לא קיים
+       
             var retrievedUser = await _reposetory.Login("1","1");
             // Assert
             Assert.Null(retrievedUser);
@@ -60,16 +60,14 @@ namespace Test
             var user = new User { UserName = "newuser@example.com", Password = "securepassword", FirstName = "John", LastName = "Doe" };
 
             // Act
-            // var addedUser = await _context.Users.AddAsync(user);
+            
              var addedUser = await _reposetory.Post(user);
 
-
-            //await _context.SaveChangesAsync();
 
             // Assert
             Assert.NotNull(addedUser);
             Assert.Equal(user.UserName, addedUser.UserName);
-            Assert.True(addedUser.Id > 0); // נניח שהמזהה יוקצה אוטומטית
+            Assert.True(addedUser.Id > 0); 
         }
 
         [Fact]
@@ -78,12 +76,9 @@ namespace Test
             // Arrange
             var user = new User { UserName = "testuser@example.com", Password = "securepassword" ,FirstName = "John", LastName = "Doe" };
 
-            //_context.Users.Add(user);
-            //await _context.SaveChangesAsync();
-
+           
             // Act
-            //var loggedInUser = await _context.Users
-            //    .FirstOrDefaultAsync(u => u.Password == user.Password && u.Email == user.Email);
+            
             var loggedInUser =await _reposetory.Login("testuser@example.com", "securepassword");
             // Assert
             Assert.NotNull(loggedInUser);

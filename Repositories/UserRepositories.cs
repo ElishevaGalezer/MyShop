@@ -24,9 +24,13 @@ namespace Repositories
         }
         public async Task <User> Post(User user)
         {
+            var item=context.Users.ToList().Find(item => item.UserName.Trim() ==user.UserName);
+            if (item == null) { 
             context.Users.AddAsync(user);
             await  context.SaveChangesAsync();
             return user;
+            }
+            return null;
         }
 
         public async Task Put(int id, User userToUpdate)

@@ -17,10 +17,10 @@ namespace Repositories
             context = myShopUsersContext;
         }
 
-        public async Task<List<Product>> Get(string? desc,int? minPrice, int? maxPrice, int?[] categoryIds)
+        public async Task<List<Product>> Get(string? name,int? minPrice, int? maxPrice, int?[] categoryIds)
         {     
          var query = context.Products.Where(Product =>
-         (desc==null?(true):(Product.Description.Contains(desc)))
+         (name==null?(true):(Product.ProductName.Contains(name)))
          &&(minPrice == null ? (true) : (Product.Price >= minPrice))
         && ((maxPrice == null) ? (true) : (Product.Price <= maxPrice))
         && ((categoryIds.Length == 0) ? (true) : (categoryIds.Contains(Product.CategoryId))))

@@ -118,5 +118,11 @@ addEventListener('load', () => {
     document.getElementById("ItemsCountText").textContent = items.length
 })
 
+UpdateUser=() => {
+    if (sessionStorage.getItem("id") != null)
+        window.location.href = 'Update.html'
+    else
+        alert("אינך משתמש, אי אפשר לעדכן פרטים!")
+}
    
 
